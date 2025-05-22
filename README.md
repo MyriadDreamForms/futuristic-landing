@@ -1,6 +1,8 @@
 # Senkronsoft Landing Page
 
-Huawei reklamların## Stil ve Animasyonlar
+Modern ve futuristik bir tasarıma sahip olan Senkronsoft kurumsal landing page projesi.
+
+## Stil ve Animasyonlar
 
 Proje, TailwindCSS ile özelleştirilebilir bir tema kullanır:
 
@@ -8,10 +10,10 @@ Proje, TailwindCSS ile özelleştirilebilir bir tema kullanır:
 // tailwind.config.js
 {
   colors: {
-    'dark-bg': '#000000',
-    'accent-blue': '#00a8ff',
-    'accent-purple': '#9c27b0',
-    'neon-green': '#39ff14',
+    'dark-bg': '#0a0a0a',
+    'accent-blue': '#3a89c9',
+    'accent-purple': '#7952a3',
+    'neon-green': '#4caf50',
   },
   fontFamily: {
     'futuristic': ['Rajdhani', 'sans-serif'],
@@ -22,16 +24,22 @@ Proje, TailwindCSS ile özelleştirilebilir bir tema kullanır:
 
 Özel animasyonlar:
 - `lightning` - Yıldırım çakması efekti
-- `glow-pulse` - Neon parlaması efekti şekilde tasarlanmış futuristik bir landing page projesi.
+- `glow-pulse` - Neon parlaması efekti
+- `float` - Yüzen element animasyonu
+- `data-flow` - Veri akışı animasyonu
+- `cyber-glitch` - Siber glitch efekti
 
 ## Özellikler
 
-- Yıldırım efekti ve ses ile etkileyici bir giriş animasyonu
 - Şık, karanlık bir tasarım ve modern tipografi
-- React Three Fiber ile 3D görselleştirmeler
+- React Three Fiber ile gerçekçi 3D dünya görseli
 - Framer Motion ile gelişmiş animasyonlar
 - TailwindCSS ile tamamen responsive tasarım
-- Özelleştirilebilir ürün ve özellik bölümleri
+- Tüm cihaz boyutlarına uygun (mobil, tablet, masaüstü)
+- Yüklenme ekranı ve giriş animasyonu
+- Responsive navbar ve mobil cihazlar için optimizasyon
+- Etkileyici ürün, özellik ve referans bölümleri
+- Etkileşimli iletişim formu ve geri bildirim alanı
 
 ## Teknolojiler
 
@@ -58,30 +66,23 @@ npm run build
 ## Proje Yapısı
 
 - `src/components/` - Tüm UI bileşenleri
-  - `IntroAnimation.tsx` - Yıldırım efekti ve giriş animasyonu
-  - `NavigationMenu.tsx` - Navigasyon çubuğu
-  - `Hero.tsx` - Ana giriş bölümü ve 3D görselleştirme
+  - `LoadingScreen.tsx` - Yükleme ekranı ve ilerleme çubuğu
+  - `IntroAnimation.tsx` - Giriş animasyonu
+  - `NavigationMenu.tsx` - Responsive navigasyon çubuğu
+  - `MobileMenu.tsx` - Mobil cihazlar için menü
+  - `Hero.tsx` - Ana giriş bölümü ve 3D dünya görseli
   - `FeaturesSection.tsx` - Ürün özellikleri listesi
   - `ProductsSection.tsx` - Ürün tanıtımları
+  - `TestimonialsSection.tsx` - Müşteri referansları
+  - `ContactSection.tsx` - İletişim formu
+  - `FeedbackButton.tsx` - Popup geri bildirim formu
   - `FooterSection.tsx` - Alt bilgi alanı
+  - `ProgressBar.tsx` - Animasyonlu ilerleme çubuğu
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `src/hooks/` - Özel React Hooks
+  - `useScrollEffect.ts` - Sayfa kaydırma efektleri
+  - `useInView.ts` - Görünüm içi animasyonlar
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `src/utils/` - Yardımcı fonksiyonlar
+  - `animationHelpers.ts` - Animasyon yardımcıları
+  - `animationSettings.ts` - Animasyon ayarları
