@@ -1,28 +1,69 @@
-# Getting Started with Create React App
+# Senkronsoft Landing Page
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Huawei reklamların## Stil ve Animasyonlar
 
-## Available Scripts
+Proje, TailwindCSS ile özelleştirilebilir bir tema kullanır:
 
-In the project directory, you can run:
+```js
+// tailwind.config.js
+{
+  colors: {
+    'dark-bg': '#000000',
+    'accent-blue': '#00a8ff',
+    'accent-purple': '#9c27b0',
+    'neon-green': '#39ff14',
+  },
+  fontFamily: {
+    'futuristic': ['Rajdhani', 'sans-serif'],
+    'display': ['Orbitron', 'sans-serif'],
+  }
+}
+```
 
-### `npm start`
+Özel animasyonlar:
+- `lightning` - Yıldırım çakması efekti
+- `glow-pulse` - Neon parlaması efekti şekilde tasarlanmış futuristik bir landing page projesi.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Özellikler
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Yıldırım efekti ve ses ile etkileyici bir giriş animasyonu
+- Şık, karanlık bir tasarım ve modern tipografi
+- React Three Fiber ile 3D görselleştirmeler
+- Framer Motion ile gelişmiş animasyonlar
+- TailwindCSS ile tamamen responsive tasarım
+- Özelleştirilebilir ürün ve özellik bölümleri
 
-### `npm test`
+## Teknolojiler
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React 19
+- TypeScript
+- TailwindCSS 3.4.17
+- Framer Motion
+- React Three Fiber
+- GSAP
 
-### `npm run build`
+## Kurulum
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Bağımlılıkları yükleyin
+npm install
+
+# Geliştirme sunucusunu başlatın
+npm start
+
+# Üretim sürümü için derleyin
+npm run build
+```
+
+## Proje Yapısı
+
+- `src/components/` - Tüm UI bileşenleri
+  - `IntroAnimation.tsx` - Yıldırım efekti ve giriş animasyonu
+  - `NavigationMenu.tsx` - Navigasyon çubuğu
+  - `Hero.tsx` - Ana giriş bölümü ve 3D görselleştirme
+  - `FeaturesSection.tsx` - Ürün özellikleri listesi
+  - `ProductsSection.tsx` - Ürün tanıtımları
+  - `FooterSection.tsx` - Alt bilgi alanı
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!

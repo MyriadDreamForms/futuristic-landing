@@ -1,13 +1,107 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-white font-futuristic antialiased m-0 p-0 overflow-x-hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer utilities {
+  /* Kaydırma çubuğunu gizleyen sınıf */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE ve Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Mobil cihazlar için dokunma hedefi iyileştirmesi */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Mobil vh düzeltmesi - mobil tarayıcılarda daha tutarlı görüntüleme için */
+  .mobile-vh-fix {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  /* Daha iyi kenar yumuşatma */
+  .text-smooth {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Safe area insets için destek */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+@layer components {
+  .text-glow {
+    @apply animate-glow-pulse;
+  }
+  
+  /* Logo için özel parlak efekt sınıfı */
+  .logo-bright-glow {
+    @apply animate-logo-glow-pulse;
+  }
+  
+  .neon-border {
+    @apply border border-accent-blue rounded-md animate-glow-pulse;
+  }
+  
+  .tech-card {
+    @apply backdrop-blur-md bg-opacity-20 bg-black border border-accent-blue rounded-lg p-4 sm:p-6 transition-all duration-300 hover:bg-opacity-30 hover:scale-105;
+  }
+  
+  .futuristic-button {
+    @apply bg-transparent border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-black font-display uppercase py-1.5 sm:py-2 px-4 sm:px-6 text-sm sm:text-base rounded-sm transition-all duration-300 tracking-wider;
+  }
+  
+  /* Yeni futuristik elementler */
+  .cyber-line {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-accent-blue to-transparent opacity-30;
+  }
+  
+  .cyber-box {
+    @apply relative border border-accent-blue bg-black bg-opacity-50 backdrop-blur-md;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+  }
+  
+  .hologram-effect {
+    @apply relative overflow-hidden;
+    background: linear-gradient(to bottom, rgba(0, 168, 255, 0.05), rgba(0, 0, 0, 0));
+  }
+  
+  .hologram-effect::before {
+    content: '';
+    @apply absolute inset-0 opacity-20 pointer-events-none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 168, 255, 0.1) 2px,
+      rgba(0, 168, 255, 0.1) 4px
+    );
+  }
+  
+  .data-grid {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(0, 168, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 168, 255, 0.05) 1px, transparent 1px);
+  }
+  
+  .floating-element {
+    @apply animate-float;
+  }
 }

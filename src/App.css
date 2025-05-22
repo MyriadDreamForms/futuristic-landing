@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
-}
+/* Tailwind CSS tarafından yönetiliyor, özel CSS'ler buraya eklenebilir */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Özel animasyonlar ve stillemeler */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Touch cihazlar için iyileştirmeler */
+@media (hover: none) {
+  /* Dokunmatik cihazlarda butonlar için daha geniş tıklama alanı */
+  button {
+    min-height: 44px; /* Apple önerisi */
+  }
+
+  /* Dokunmatik cihazlarda seçiciler için daha geniş alanlar */
+  select, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobil cihazlarda navbar tıklama bölgesi iyileştirmesi */
+  nav a, nav button {
+    padding: 8px;
+    margin: -4px;
+  }
+  
+  /* Scrollbar dokunma deneyimi iyileştirmesi */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
+/* Kırılma noktaları için özel medya sorguları */
+@media (max-width: 380px) {
+  html {
+    font-size: 14px; /* Çok küçük ekranlar için temel font boyutunu azaltıyoruz */
+  }
+}
+
+/* Daha akıcı animasyon performansı için */
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Navbar için özel stillemeler */
+nav.fixed {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  will-change: transform;
+}
+
+/* Navbar için scrollbar kompanzasyonu */
+@supports (scrollbar-width: none) {
+  nav.fixed {
+    padding-right: calc(1rem + var(--scrollbar-width, 0px));
+  }
+}
+
+/* Mobil safari için yükseklik düzeltmesi */
+.min-h-screen {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* Mobile Safari için */
+  min-height: -webkit-fill-available;
 }
 
-.App-link {
-  color: #61dafb;
+html {
+  height: -webkit-fill-available;
+  scroll-behavior: smooth;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+body {
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}
+
+/* Mobil cihazlarda 100vh sorunu için düzeltme */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
   }
-  to {
-    transform: rotate(360deg);
+  
+  /* Navbarin iPhone mobil tarayıcılarda aşağı kayarken görünümü */
+  .fixed {
+    position: sticky;
+    position: -webkit-sticky;
   }
+}
+
+/* Mobil cihazlar için görünürlük ve animasyon optimizasyonları */
+.gpu-acceleration {
+  transform: translateZ(0);
 }
