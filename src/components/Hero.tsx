@@ -37,9 +37,10 @@ const EarthGlobe = () => {
   );
 };
 
-// Mars gezegeni
+// Mars gezegeni - gerçek Mars tekstürü
 const Mars = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const marsTexture = useTexture('/mars.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -49,9 +50,9 @@ const Mars = () => {
 
   return (
     <mesh ref={meshRef} position={[6, 1, -4]}>
-      <sphereGeometry args={[0.5, 16, 16]} />
+      <sphereGeometry args={[0.5, 32, 32]} />
       <meshPhysicalMaterial 
-        color="#cd5c5c"
+        map={marsTexture}
         roughness={0.9}
         metalness={0.1}
       />
@@ -59,9 +60,10 @@ const Mars = () => {
   );
 };
 
-// Venüs gezegeni
+// Venüs gezegeni - gerçek Venüs tekstürü
 const Venus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const venusTexture = useTexture('/venus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -71,9 +73,9 @@ const Venus = () => {
 
   return (
     <mesh ref={meshRef} position={[-4, -2, -3]}>
-      <sphereGeometry args={[0.7, 16, 16]} />
+      <sphereGeometry args={[0.7, 32, 32]} />
       <meshPhysicalMaterial 
-        color="#ffc649"
+        map={venusTexture}
         roughness={0.3}
         metalness={0.2}
       />
@@ -81,9 +83,10 @@ const Venus = () => {
   );
 };
 
-// Jüpiter (uzakta, büyük)
+// Jüpiter - gerçek Jüpiter tekstürü
 const Jupiter = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const jupiterTexture = useTexture('/jupiter.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -93,9 +96,9 @@ const Jupiter = () => {
 
   return (
     <mesh ref={meshRef} position={[12, -3, -12]}>
-      <sphereGeometry args={[1.1, 16, 16]} />
+      <sphereGeometry args={[1.1, 32, 32]} />
       <meshPhysicalMaterial 
-        color="#d8ca9d"
+        map={jupiterTexture}
         roughness={0.8}
         metalness={0.0}
       />
@@ -103,10 +106,12 @@ const Jupiter = () => {
   );
 };
 
-// Satürn (çok uzakta, halkalı)
+// Satürn - gerçek Satürn tekstürü ve halkaları
 const Saturn = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
+  const saturnTexture = useTexture('/saturn.jpg');
+  const ringTexture = useTexture('/saturn_ring_alpha.png');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -120,20 +125,20 @@ const Saturn = () => {
   return (
     <group position={[-10, 3, -16]}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[0.8, 16, 16]} />
+        <sphereGeometry args={[0.8, 32, 32]} />
         <meshPhysicalMaterial 
-          color="#fab273"
+          map={saturnTexture}
           roughness={0.7}
           metalness={0.1}
         />
       </mesh>
       {/* Satürn'ün halkaları */}
       <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.0, 1.4, 16]} />
+        <ringGeometry args={[1.0, 1.4, 32]} />
         <meshBasicMaterial 
-          color="#888888" 
+          map={ringTexture}
           transparent 
-          opacity={0.6}
+          opacity={0.8}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -141,21 +146,22 @@ const Saturn = () => {
   );
 };
 
-// Merkür gezegeni (en küçük)
+// Merkür - gerçek Merkür tekstürü
 const Mercury = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const mercuryTexture = useTexture('/mercury.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.15; // En hızlı dönüş
+      meshRef.current.rotation.y += delta * 0.15;
     }
   });
 
   return (
     <mesh ref={meshRef} position={[3, 0.5, -2]}>
-      <sphereGeometry args={[0.25, 12, 12]} />
+      <sphereGeometry args={[0.25, 24, 24]} />
       <meshPhysicalMaterial 
-        color="#8c7853"
+        map={mercuryTexture}
         roughness={0.9}
         metalness={0.2}
       />
@@ -163,10 +169,11 @@ const Mercury = () => {
   );
 };
 
-// Uranüs (mavi-yeşil, halkalı)
+// Uranüs - gerçek Uranüs tekstürü
 const Uranus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
+  const uranusTexture = useTexture('/uranus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -180,16 +187,16 @@ const Uranus = () => {
   return (
     <group position={[15, 4, -20]}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[0.6, 16, 16]} />
+        <sphereGeometry args={[0.6, 24, 24]} />
         <meshPhysicalMaterial 
-          color="#4fd0e4"
+          map={uranusTexture}
           roughness={0.4}
           metalness={0.3}
         />
       </mesh>
       {/* Uranüs'ün dikey halkaları */}
       <mesh ref={ringsRef} rotation={[0, 0, Math.PI / 2]}>
-        <ringGeometry args={[0.8, 1.0, 12]} />
+        <ringGeometry args={[0.8, 1.0, 24]} />
         <meshBasicMaterial 
           color="#66ccdd" 
           transparent 
@@ -201,9 +208,10 @@ const Uranus = () => {
   );
 };
 
-// Neptün (koyu mavi)
+// Neptün - gerçek Neptün tekstürü
 const Neptune = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const neptuneTexture = useTexture('/neptune.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -213,9 +221,9 @@ const Neptune = () => {
 
   return (
     <mesh ref={meshRef} position={[-16, -4, -24]}>
-      <sphereGeometry args={[0.55, 16, 16]} />
+      <sphereGeometry args={[0.55, 24, 24]} />
       <meshPhysicalMaterial 
-        color="#4b70dd"
+        map={neptuneTexture}
         roughness={0.5}
         metalness={0.2}
       />
@@ -223,9 +231,46 @@ const Neptune = () => {
   );
 };
 
-// Plüton (cüce gezegen, en küçük)
+// Güneş - parlak sarı/turuncu
+const Sun = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
+  const sunTexture = useTexture('/sun.jpg');
+  
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.03;
+    }
+    if (glowRef.current) {
+      const time = state.clock.getElapsedTime();
+      const glow = 0.7 + Math.sin(time * 2) * 0.1;
+      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = glow;
+    }
+  });
+
+  return (
+    <group position={[-25, 10, -40]}>
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[2, 32, 32]} />
+        <meshBasicMaterial 
+          map={sunTexture}
+        />
+      </mesh>
+      <mesh ref={glowRef} scale={1.2}>
+        <sphereGeometry args={[2, 16, 16]} />
+        <meshBasicMaterial 
+          color="#ff6600"
+          transparent={true}
+          opacity={0.7}
+        />
+      </mesh>
+    </group>  );
+};
+
+// Plüton - gerçek Plüton tekstürü
 const Pluto = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const plutoTexture = useTexture('/pluto.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -235,9 +280,9 @@ const Pluto = () => {
 
   return (
     <mesh ref={meshRef} position={[20, -6, -28]}>
-      <sphereGeometry args={[0.15, 8, 8]} />
+      <sphereGeometry args={[0.15, 16, 16]} />
       <meshPhysicalMaterial 
-        color="#a0826d"
+        map={plutoTexture}
         roughness={0.9}
         metalness={0.1}
       />
@@ -245,46 +290,7 @@ const Pluto = () => {
   );
 };
 
-// Güneş (uzakta, ışık kaynağı)
-const Sun = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const glowRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.03;
-    }
-    if (glowRef.current) {
-      // Güneş'in parlaklığını zamanla değiştir
-      const time = state.clock.getElapsedTime();
-      const glow = 0.7 + Math.sin(time * 2) * 0.1;
-      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = glow;
-    }
-  });
-
-  return (
-    <group position={[-25, 10, -40]}>
-      {/* Ana Güneş */}
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[2, 32, 32]} />
-        <meshBasicMaterial 
-          color="#ffaa00"
-        />
-      </mesh>
-      {/* Güneş'in parıltısı */}
-      <mesh ref={glowRef} scale={1.2}>
-        <sphereGeometry args={[2, 16, 16]} />
-        <meshBasicMaterial 
-          color="#ff6600"
-          transparent={true}
-          opacity={0.7}
-        />
-      </mesh>
-    </group>
-  );
-};
-
-const Hero: React.FC = () => {    return (    <section id="ana-sayfa" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24">
+const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-dark-bg z-0">
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
