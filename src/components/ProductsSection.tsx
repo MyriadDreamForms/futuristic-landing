@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { scrollToSection } from '../utils/animationHelpers';
 
 export {};
 
@@ -109,10 +110,17 @@ const ProductsSection: React.FC = () => {
             <div className="w-full md:w-1/2 px-2 sm:px-4 py-4 md:py-0">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-2">{products[activeProduct].name}</h2>
               <h3 className="text-base sm:text-lg md:text-xl text-accent-blue font-futuristic mb-3 sm:mb-4">{products[activeProduct].tagline}</h3>
-              <p className="text-gray-300 text-sm sm:text-base mb-4 sm:mb-6">{products[activeProduct].description}</p>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
+              <p className="text-gray-300 text-sm sm:text-base mb-4 sm:mb-6">{products[activeProduct].description}</p>              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
                 <span className="text-xl sm:text-2xl font-display font-bold text-white">{products[activeProduct].price}</span>
-                <button className="futuristic-button text-sm sm:text-base py-1.5 sm:py-2 w-full sm:w-auto">DETAYLAR</button>
+                <button 
+                  className="futuristic-button text-sm sm:text-base py-1.5 sm:py-2 w-full sm:w-auto"
+                  onClick={() => {
+                    console.log('DETAYLAR butonuna tıklandı, iletişim bölümüne yönlendiriliyor...'); // Debug
+                    scrollToSection('iletisim');
+                  }}
+                >
+                  DETAYLAR
+                </button>
               </div>
             </div>
           </motion.div>

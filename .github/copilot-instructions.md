@@ -8,3 +8,4 @@ applyTo: "**"
 - Özlü olun.
 - Diğer tüm düzyazıları en aza indirin.
 - Her bitirdiğinizde, bana bir sonraki adım için önerilerde bulunun.
+- Powershell kullanırken && işareti yerine ; kullanın.

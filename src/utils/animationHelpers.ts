@@ -2,11 +2,15 @@
 
 // Sayfa içi link tıklamasında yumuşak kaydırma
 export const scrollToSection = (sectionId: string) => {
+  console.log(`scrollToSection çağrıldı: ${sectionId}`); // Debug
   const section = document.getElementById(sectionId);
   if (section) {
+    console.log(`${sectionId} elementi bulundu, scroll ediliyor...`); // Debug
     section.scrollIntoView({
       behavior: 'smooth'
     });
+  } else {
+    console.error(`${sectionId} elementi bulunamadı!`); // Debug
   }
 };
 

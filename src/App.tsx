@@ -106,8 +106,8 @@ function App() {
           <div ref={mainContentRef} key="main-content">
             <NavigationMenu />
             <Hero />
-            <FeaturesSection />
             <ProductsSection />
+            <FeaturesSection />
             {/* @ts-ignore */}
             <TestimonialsSection />
             {/* @ts-ignore */}
