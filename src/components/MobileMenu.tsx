@@ -148,7 +148,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
                       (e.target as HTMLElement).style.color = '#ffffff';
                     }}
                   >
-                    {item}
+                    <span style={{ pointerEvents: 'none' }}>{item}</span>
                   </a>
                 </li>
               ))}

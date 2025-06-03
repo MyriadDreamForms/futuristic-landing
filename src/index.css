@@ -43,6 +43,24 @@
   .safe-area-inset-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0);
   }
+
+  /* Mobil optimize edilmiş sınıflar */
+  .mobile-card {
+    @apply bg-opacity-95 backdrop-blur-lg border border-accent-blue border-opacity-30 rounded-xl p-4 sm:p-6;
+  }
+
+  .mobile-nav-item {
+    @apply min-h-[48px] flex items-center justify-center px-4 text-center touch-manipulation;
+  }
+
+  .mobile-text-balance {
+    text-wrap: balance;
+  }
+
+  .mobile-scroll-smooth {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @layer components {

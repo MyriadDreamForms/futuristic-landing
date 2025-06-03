@@ -89,7 +89,7 @@ const FooterSection: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </span>
-                <span className="text-gray-400 text-xs xs:text-sm sm:text-base">Teknoloji Vadisi, 34000, İstanbul</span>
+                <span className="text-gray-400 text-xs xs:text-sm sm:text-base">Teknoloji Vadisi, 35000, İzmir</span>
               </li>
               <li className="flex items-start justify-center xs:justify-start">
                 <span className="text-accent-blue mr-2 flex-shrink-0 mt-0.5">

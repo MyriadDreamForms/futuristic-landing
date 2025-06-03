@@ -96,7 +96,7 @@ const NavigationMenu: React.FC = () => {
                 className="relative"
               >                <a 
                   href={`#${sectionId}`} 
-                  className={`font-futuristic transition-colors duration-300 ${isActive ? 'text-accent-blue' : 'text-white hover:text-accent-blue'}`}
+                  className={`w-full block font-futuristic transition-colors duration-300 cursor-pointer ${isActive ? 'text-accent-blue' : 'text-white hover:text-accent-blue'}`}
                   onClick={(e) => {
                     e.preventDefault();
                     console.log(`Navbar: ${item} tıklandı, ${sectionId} bölümüne gidiliyor...`); // Debug
@@ -104,8 +104,8 @@ const NavigationMenu: React.FC = () => {
                   }}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {item}
-                  <span className="sr-only">{isActive ? '(mevcut sayfa)' : ''}</span>
+                  <span className="pointer-events-none">{item}</span>
+                  <span className="sr-only pointer-events-none">{isActive ? '(mevcut sayfa)' : ''}</span>
                 </a>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-accent-blue"
@@ -116,25 +116,16 @@ const NavigationMenu: React.FC = () => {
               </li>
             );
           })}
-        </ul>          <button
-          className={`md:hidden text-white hover:text-accent-blue transition-all duration-300 ${scrolled ? 'bg-dark-bg bg-opacity-50 p-1.5 rounded-md' : ''}`}
+        </ul>        <button
+          className={`block md:hidden text-white hover:text-accent-blue transition-all duration-300 z-[9998] relative cursor-pointer ${scrolled ? 'bg-dark-bg bg-opacity-50 p-1.5 rounded-md' : 'p-2'} ${isMobileMenuOpen ? 'bg-accent-blue bg-opacity-20' : ''}`}
           onClick={() => {
             console.log('Hamburger menü tıklandı, açılıyor...'); // Debug
             setIsMobileMenuOpen(true);
           }}
-          style={{ 
-            display: 'block',
-            zIndex: '9998',
-            position: 'relative',
-            padding: '0.5rem',
-            cursor: 'pointer',
-            backgroundColor: isMobileMenuOpen ? 'rgba(0, 168, 255, 0.2)' : 'transparent'
-          }}
           aria-label="Menüyü aç"
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" style={{ width: '24px', height: '24px', color: '#ffffff' }}>
+        >          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
