@@ -66,7 +66,6 @@ npm run build
 ## Proje Yapısı
 
 - `src/components/` - Tüm UI bileşenleri
-  - `LoadingScreen.tsx` - Yükleme ekranı ve ilerleme çubuğu
   - `IntroAnimation.tsx` - Giriş animasyonu
   - `NavigationMenu.tsx` - Responsive navigasyon çubuğu
   - `MobileMenu.tsx` - Mobil cihazlar için menü
@@ -77,7 +76,6 @@ npm run build
   - `ContactSection.tsx` - İletişim formu
   - `FeedbackButton.tsx` - Popup geri bildirim formu
   - `FooterSection.tsx` - Alt bilgi alanı
-  - `ProgressBar.tsx` - Animasyonlu ilerleme çubuğu
 
 - `src/hooks/` - Özel React Hooks
   - `useScrollEffect.ts` - Sayfa kaydırma efektleri

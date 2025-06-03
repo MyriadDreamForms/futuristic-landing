@@ -26,7 +26,7 @@ const EarthGlobe = () => {
       ref={meshRef}
       position={[0, 0, 0]}
     >
-      <sphereGeometry args={[1.8, 128, 128]} /> {/* Daha yüksek detay için segment sayısını artırdık */}
+      <sphereGeometry args={[1.8, 32, 32]} /> {/* 64'den 32'ye düşürdük - daha hızlı */}
       <meshPhysicalMaterial 
         map={earthTexture}
         roughness={0.7}
@@ -38,7 +38,7 @@ const EarthGlobe = () => {
   );
 };
 
-const Hero: React.FC = () => {    return (    <section id="ana-sayfa" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24">
+const Hero: React.FC = React.memo(() => {    return (    <section id="ana-sayfa" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-dark-bg z-0">
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
@@ -46,13 +46,18 @@ const Hero: React.FC = () => {    return (    <section id="ana-sayfa" className=
       </div>
 
       {/* 3D Object */}      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 5], fov: 45 }}
+          performance={{ min: 0.8 }}
+          dpr={[1, 2]}
+          gl={{ antialias: false, powerPreference: "high-performance" }}
+        >
           <Suspense fallback={null}>
             <ambientLight intensity={0.7} /> {/* Daha güçlü ortam ışığı */}
             <spotLight position={[5, 10, 15]} angle={0.25} penumbra={1} intensity={1.5} castShadow />
             <pointLight position={[-10, -10, -10]} intensity={0.5} />
             <EarthGlobe />
-            <Stars radius={100} depth={60} count={4000} factor={4} saturation={0} fade speed={0.3} />
+            <Stars radius={100} depth={60} count={1000} factor={4} saturation={0} fade speed={0.3} />
             <OrbitControls 
               enableZoom={false} 
               autoRotate={false} 
@@ -111,10 +116,9 @@ const Hero: React.FC = () => {    return (    <section id="ana-sayfa" className=
           <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-gray-400 rounded-full flex justify-center p-1">
             <div className="w-1 h-2 bg-accent-blue rounded-full" />
           </div>
-        </div>
-      </div>
+        </div>      </div>
     </section>
   );
-};
+});
 
 export default Hero;

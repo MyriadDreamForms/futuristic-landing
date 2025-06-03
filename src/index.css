@@ -3,12 +3,57 @@
 @tailwind utilities;
 
 @layer base {
+  /* Performance optimizations ve FOUC önleme - Güçlendirilmiş */
+  :root {
+    color-scheme: dark;
+    --bg-color: #0a0a0a;
+    --text-color: #ffffff;
+  }
+  
+  * {
+    will-change: auto;
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   body {
     @apply bg-dark-bg text-white font-futuristic antialiased m-0 p-0 overflow-x-hidden;
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    height: 100%;
+    font-display: swap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  #root {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    min-height: 100vh;
+    width: 100%;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+  
+  /* 3D hardware acceleration sadece gerekli elementlerde */
+  .canvas-container {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Hızlı render için kritik elementler */
+  .hero-section, .nav-menu {
+    contain: layout style paint;
   }
 }
 
@@ -123,3 +168,16 @@
     @apply animate-float;
   }
 }
+
+/* Performance optimizations */
+* {
+  will-change: auto;
+}
+
+/* 3D hardware acceleration sadece gerekli elementlerde */
+.canvas-container {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+
