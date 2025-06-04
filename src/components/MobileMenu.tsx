@@ -153,14 +153,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
                 </li>
               ))}
             </ul>
-          </nav>
-
-          <div className="pt-6 mt-6 border-t border-gray-800">
+          </nav>          <div className="pt-6 mt-6 border-t border-gray-800">
             <button 
               className="futuristic-button w-full py-3"
               onClick={(e) => {
-                scrollToSection('iletisim');
-                onClose();
+                onClose(); // Önce menüyü kapat
+                setTimeout(() => {
+                  scrollToSection('iletisim'); // Sonra scroll yap
+                }, 100); // Kısa delay
               }}
             >
               İLETİŞİME GEÇ
