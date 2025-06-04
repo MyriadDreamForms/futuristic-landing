@@ -32,212 +32,259 @@ const EarthGlobe = () => {
     }
   });
   return (
-    <mesh
-      ref={meshRef}
-      position={[0, 0, 0]}
-    >
-      <sphereGeometry args={[1.0, 128, 128]} />
-      <meshPhysicalMaterial 
-        map={earthTexture}
-        roughness={0.7}
-        metalness={0.1}
-        clearcoat={0.2} 
-        clearcoatRoughness={0.2}
-      />
-    </mesh>
+    <group>
+      <mesh
+        ref={meshRef}
+        position={[0, 0, 0]}
+      >
+        <sphereGeometry args={[1.0, 128, 128]} />
+        <meshPhysicalMaterial 
+          map={earthTexture}
+          roughness={0.7}
+          metalness={0.1}
+          clearcoat={0.2} 
+          clearcoatRoughness={0.2}
+        />
+      </mesh>
+      {/* Ay - Dünya'nın etrafında döner */}
+      <Moon />
+    </group>
   );
 };
 
-// Mars gezegeni - gerçek Mars tekstürü
+// Mars gezegeni - Güneş etrafında orbit ile
 const Mars = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
   const marsTexture = useTexture('/gezegenler/mars.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.08;
+      meshRef.current.rotation.y += delta * 0.08; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.06; // Güneş etrafında orbit
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[6, 1, -4]}>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshPhysicalMaterial 
-        map={marsTexture}
-        roughness={0.9}
-        metalness={0.1}
-      />
-    </mesh>
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[8, 1, 0]}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshPhysicalMaterial 
+          map={marsTexture}
+          roughness={0.9}
+          metalness={0.1}
+        />
+      </mesh>
+    </group>
   );
 };
 
-// Venüs gezegeni - gerçek Venüs tekstürü
+// Venüs gezegeni - Güneş etrafında orbit ile
 const Venus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
   const venusTexture = useTexture('/gezegenler/venus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.05;
+      meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.12; // Güneş etrafında orbit (daha hızlı)
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[-4, -2, -3]}>
-      <sphereGeometry args={[0.7, 32, 32]} />
-      <meshPhysicalMaterial 
-        map={venusTexture}
-        roughness={0.3}
-        metalness={0.2}
-      />
-    </mesh>
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[5.5, -1, 0]}>
+        <sphereGeometry args={[0.7, 32, 32]} />
+        <meshPhysicalMaterial 
+          map={venusTexture}
+          roughness={0.3}
+          metalness={0.2}
+        />
+      </mesh>
+    </group>
   );
 };
 
-// Jüpiter - gerçek Jüpiter tekstürü
+// Jüpiter - Güneş etrafında orbit ile
 const Jupiter = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
   const jupiterTexture = useTexture('/gezegenler/jupiter.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.12;
+      meshRef.current.rotation.y += delta * 0.12; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.02; // Güneş etrafında orbit (yavaş)
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[12, -3, -12]}>
-      <sphereGeometry args={[1.1, 32, 32]} />
-      <meshPhysicalMaterial 
-        map={jupiterTexture}
-        roughness={0.8}
-        metalness={0.0}
-      />
-    </mesh>
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[15, -2, 0]}>
+        <sphereGeometry args={[1.1, 32, 32]} />
+        <meshPhysicalMaterial 
+          map={jupiterTexture}
+          roughness={0.8}
+          metalness={0.0}
+        />
+      </mesh>
+    </group>
   );
 };
 
-// Satürn - gerçek Satürn tekstürü ve halkaları
+// Satürn - Güneş etrafında orbit ile
 const Saturn = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const ringsRef = useRef<THREE.Mesh>(null);  const saturnTexture = useTexture('/gezegenler/saturn.jpg');
+  const ringsRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
+  const saturnTexture = useTexture('/gezegenler/saturn.jpg');
   const ringTexture = useTexture('/gezegenler/saturn_ring_alpha.png');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.1;
+      meshRef.current.rotation.y += delta * 0.1; // Kendi ekseni etrafında dönüş
     }
     if (ringsRef.current) {
-      ringsRef.current.rotation.z += delta * 0.05;
+      ringsRef.current.rotation.z += delta * 0.05; // Halka dönüşü
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.015; // Güneş etrafında orbit (çok yavaş)
     }
   });
 
   return (
-    <group position={[-10, 3, -16]}>
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[0.8, 32, 32]} />
-        <meshPhysicalMaterial 
-          map={saturnTexture}
-          roughness={0.7}
-          metalness={0.1}
-        />
-      </mesh>
-      {/* Satürn'ün halkaları */}
-      <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.0, 1.4, 32]} />
-        <meshBasicMaterial 
-          map={ringTexture}
-          transparent 
-          opacity={0.8}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+    <group ref={orbitRef}>
+      <group position={[18, 3, 0]}>
+        <mesh ref={meshRef}>
+          <sphereGeometry args={[0.8, 32, 32]} />
+          <meshPhysicalMaterial 
+            map={saturnTexture}
+            roughness={0.7}
+            metalness={0.1}
+          />
+        </mesh>
+        {/* Satürn'ün halkaları */}
+        <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[1.0, 1.4, 32]} />
+          <meshBasicMaterial 
+            map={ringTexture}
+            transparent 
+            opacity={0.8}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      </group>
     </group>
   );
 };
 
-// Merkür - gerçek Merkür tekstürü
+// Merkür - Güneş etrafında orbit ile
 const Mercury = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
   const mercuryTexture = useTexture('/gezegenler/mercury.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.15;
+      meshRef.current.rotation.y += delta * 0.15; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.25; // Güneş etrafında orbit (en hızlı)
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[3, 0.5, -2]}>
-      <sphereGeometry args={[0.25, 24, 24]} />
-      <meshPhysicalMaterial 
-        map={mercuryTexture}
-        roughness={0.9}
-        metalness={0.2}
-      />
-    </mesh>
-  );
-};
-
-// Uranüs - gerçek Uranüs tekstürü
-const Uranus = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const ringsRef = useRef<THREE.Mesh>(null);
-  const uranusTexture = useTexture('/gezegenler/uranus.jpg');
-  
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.06;
-    }
-    if (ringsRef.current) {
-      ringsRef.current.rotation.x += delta * 0.03;
-    }
-  });
-
-  return (
-    <group position={[15, 4, -20]}>
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[0.6, 24, 24]} />
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[3.5, 0.5, 0]}>
+        <sphereGeometry args={[0.25, 24, 24]} />
         <meshPhysicalMaterial 
-          map={uranusTexture}
-          roughness={0.4}
-          metalness={0.3}
-        />
-      </mesh>
-      {/* Uranüs'ün dikey halkaları */}
-      <mesh ref={ringsRef} rotation={[0, 0, Math.PI / 2]}>
-        <ringGeometry args={[0.8, 1.0, 24]} />
-        <meshBasicMaterial 
-          color="#66ccdd" 
-          transparent 
-          opacity={0.4}
-          side={THREE.DoubleSide}
+          map={mercuryTexture}
+          roughness={0.9}
+          metalness={0.2}
         />
       </mesh>
     </group>
   );
 };
 
-// Neptün - gerçek Neptün tekstürü
-const Neptune = () => {
+// Uranüs - Güneş etrafında orbit ile
+const Uranus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const neptuneTexture = useTexture('/gezegenler/neptune.jpg');
+  const ringsRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
+  const uranusTexture = useTexture('/gezegenler/uranus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.04;
+      meshRef.current.rotation.y += delta * 0.06; // Kendi ekseni etrafında dönüş
+    }
+    if (ringsRef.current) {
+      ringsRef.current.rotation.x += delta * 0.03; // Halka dönüşü
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.01; // Güneş etrafında orbit (çok yavaş)
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[-16, -4, -24]}>
-      <sphereGeometry args={[0.55, 24, 24]} />
-      <meshPhysicalMaterial 
-        map={neptuneTexture}
-        roughness={0.5}
-        metalness={0.2}
-      />
-    </mesh>
+    <group ref={orbitRef}>
+      <group position={[22, 4, 0]}>
+        <mesh ref={meshRef}>
+          <sphereGeometry args={[0.6, 24, 24]} />
+          <meshPhysicalMaterial 
+            map={uranusTexture}
+            roughness={0.4}
+            metalness={0.3}
+          />
+        </mesh>
+        {/* Uranüs'ün dikey halkaları */}
+        <mesh ref={ringsRef} rotation={[0, 0, Math.PI / 2]}>
+          <ringGeometry args={[0.8, 1.0, 24]} />
+          <meshBasicMaterial 
+            color="#66ccdd" 
+            transparent 
+            opacity={0.4}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      </group>
+    </group>
+  );
+};
+
+// Neptün - Güneş etrafında orbit ile
+const Neptune = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
+  const neptuneTexture = useTexture('/gezegenler/neptune.jpg');
+  
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.04; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.008; // Güneş etrafında orbit (en yavaş)
+    }
+  });
+
+  return (
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[25, -4, 0]}>
+        <sphereGeometry args={[0.55, 24, 24]} />
+        <meshPhysicalMaterial 
+          map={neptuneTexture}
+          roughness={0.5}
+          metalness={0.2}
+        />
+      </mesh>
+    </group>
   );
 };
 
@@ -277,26 +324,61 @@ const Sun = () => {
     </group>  );
 };
 
-// Plüton - gerçek Plüton tekstürü
+// Plüton - Güneş etrafında orbit ile
 const Pluto = () => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
   const plutoTexture = useTexture('/gezegenler/pluto.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.02;
+      meshRef.current.rotation.y += delta * 0.02; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.005; // Güneş etrafında orbit (çok çok yavaş)
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[20, -6, -28]}>
-      <sphereGeometry args={[0.15, 16, 16]} />
-      <meshPhysicalMaterial 
-        map={plutoTexture}
-        roughness={0.9}
-        metalness={0.1}
-      />
-    </mesh>
+    <group ref={orbitRef}>
+      <mesh ref={meshRef} position={[28, -6, 0]}>
+        <sphereGeometry args={[0.15, 16, 16]} />
+        <meshPhysicalMaterial 
+          map={plutoTexture}
+          roughness={0.9}
+          metalness={0.1}
+        />
+      </mesh>
+    </group>
+  );
+};
+
+// Ay - Dünya'nın etrafında dönen uydu
+const Moon = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
+  const moonTexture = useTexture('/gezegenler/moon.jpg');
+  
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.8; // Dünya etrafında orbit (hızlı)
+    }
+  });
+
+  return (
+    <group ref={orbitRef} position={[0, 0, 0]}>
+      <mesh ref={meshRef} position={[2.5, 0, 0]}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshPhysicalMaterial 
+          map={moonTexture}
+          roughness={0.9}
+          metalness={0.1}
+        />
+      </mesh>
+    </group>
   );
 };
 
