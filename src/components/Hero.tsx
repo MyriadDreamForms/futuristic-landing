@@ -31,13 +31,12 @@ const EarthGlobe = () => {
       meshRef.current.rotation.y += delta * 0.1; // Daha yavaş ve gerçekçi dönüş
     }
   });
-
   return (
     <mesh
       ref={meshRef}
       position={[0, 0, 0]}
     >
-      <sphereGeometry args={[1.8, 128, 128]} />
+      <sphereGeometry args={[1.0, 128, 128]} />
       <meshPhysicalMaterial 
         map={earthTexture}
         roughness={0.7}
