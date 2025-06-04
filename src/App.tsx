@@ -55,17 +55,16 @@ function App() {
         </Suspense>
         
         {/* Scroll to top button */}
-        {showScrollToTop && (
-          <button 
-            onClick={scrollToTop}
-            className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-accent-blue text-dark-bg flex items-center justify-center shadow-lg hover:brightness-110 transition-all duration-300"
-            aria-label="Yukarı çık"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        )}
+        <button 
+          onClick={scrollToTop}
+          className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-[99997] w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-accent-blue text-dark-bg flex items-center justify-center shadow-lg hover:brightness-110 transition-all duration-300"
+          aria-label="Yukarı çık"
+          style={{ zIndex: 99997 }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
         
         {/* Feedback button */}
         <Suspense fallback={null}>
