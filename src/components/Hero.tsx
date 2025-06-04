@@ -5,6 +5,18 @@ import * as THREE from 'three';
 
 export {};
 
+// Yıldız arka planı için küre
+const Starfield = () => {
+  const starTexture = useTexture('/stars_milky_way.jpg');
+  
+  return (
+    <mesh scale={[-1, 1, 1]}> {/* Negatif scale ile içten görünümü sağlıyoruz */}
+      <sphereGeometry args={[50, 64, 64]} />
+      <meshBasicMaterial map={starTexture} side={THREE.BackSide} />
+    </mesh>
+  );
+};
+
 const EarthGlobe = () => {
   // Three.js için referanslar
   const meshRef = useRef<THREE.Mesh>(null);
@@ -304,8 +316,7 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             
             {/* Gezegenler için ek ışıklar */}
             <pointLight position={[10, 5, -5]} intensity={0.3} color="#ff6b6b" />
-            <pointLight position={[-8, -2, -8]} intensity={0.2} color="#4ecdc4" />
-              {/* Ana gezegen - Dünya */}
+            <pointLight position={[-8, -2, -8]} intensity={0.2} color="#4ecdc4" />            {/* Ana gezegen - Dünya */}
             <EarthGlobe />
             
             {/* Diğer gezegenler - arka planda */}
@@ -319,7 +330,9 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             <Neptune />
             <Pluto />
             
-            <Stars radius={120} depth={80} count={5000} factor={5} saturation={0} fade speed={0.2} />
+            {/* Yıldızlı arka plan */}
+            <Starfield />
+            
             <OrbitControls 
               enableZoom={false} 
               autoRotate={true}
