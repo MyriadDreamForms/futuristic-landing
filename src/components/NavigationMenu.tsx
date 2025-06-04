@@ -77,11 +77,10 @@ const NavigationMenu: React.FC = () => {
     ><div className="container mx-auto flex justify-between items-center">        <a href="#ana-sayfa" className="flex items-center" aria-label="Ana sayfaya git" onClick={(e) => {
           e.preventDefault();
           scrollToSection('ana-sayfa');
-        }}>
-          <img 
+        }}>          <img 
             src="/logo.png" 
             alt="Senkronsoft Logo" 
-            className={`h-8 w-8 sm:h-10 sm:w-10 mr-2 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
+            className={`h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 mr-2 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
           />
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-accent-blue logo-bright-glow mr-1 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SENKRON</span>
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-white transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SOFT</span>
