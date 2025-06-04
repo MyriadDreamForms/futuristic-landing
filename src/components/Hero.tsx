@@ -2,6 +2,7 @@ import React, { useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import { scrollToSection } from '../utils/animationHelpers';
 
 export {};
 
@@ -362,13 +363,17 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             
             <p className="text-gray-300 text-base sm:text-lg max-w-md mx-auto md:mx-0 font-futuristic">
               İşletmeniz için özel geliştirilen yazılım çözümleriyle verimliliğinizi artırın, maliyetlerinizi düşürün ve rekabet avantajı kazanın.
-            </p>
-
-            <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4">
-              <button className="futuristic-button text-sm sm:text-base py-1.5 sm:py-2">
+            </p>            <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4">
+              <button 
+                className="futuristic-button text-sm sm:text-base py-1.5 sm:py-2 px-4 sm:px-6"
+                onClick={() => scrollToSection('cozumlerimiz')}
+              >
                 ÇÖZÜMLERİMİZ
               </button>
-              <button className="bg-accent-blue text-dark-bg hover:brightness-110 font-display uppercase text-sm sm:text-base py-1.5 sm:py-2 px-4 sm:px-6 rounded-sm transition-all duration-300 tracking-wider">
+              <button 
+                className="bg-accent-blue text-dark-bg hover:brightness-110 font-display uppercase text-sm sm:text-base py-1.5 sm:py-2 px-4 sm:px-6 rounded-sm transition-all duration-300 tracking-wider"
+                onClick={() => scrollToSection('iletisim')}
+              >
                 DEMO TALEP ET
               </button>
             </div>

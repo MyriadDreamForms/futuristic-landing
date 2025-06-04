@@ -110,8 +110,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
               <span className="text-2xl font-bold text-white">SOFT</span>
             </a>
             <button 
-              className="text-white p-2 hover:text-blue-400 transition-colors duration-300"
-              style={{ fontSize: '1.5rem' }}
+              className="text-white p-2 hover:text-accent-blue transition-colors duration-300 text-2xl"
               onClick={onClose}
               aria-label="Menüyü kapat"
             >
@@ -157,16 +156,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
 
           <div className="pt-6 mt-6 border-t border-gray-800">
             <button 
-              className="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition-colors"
-              style={{ 
-                width: '100%', 
-                backgroundColor: '#00a8ff', 
-                color: '#ffffff', 
-                padding: '0.75rem',
-                borderRadius: '0.375rem',
-                border: 'none',
-                cursor: 'pointer'
-              }}
+              className="futuristic-button w-full py-3"
               onClick={(e) => {
                 scrollToSection('iletisim');
                 onClose();
