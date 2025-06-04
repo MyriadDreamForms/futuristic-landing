@@ -381,8 +381,7 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-accent-purple opacity-5 blur-[150px] rounded-full"></div>
       </div>{/* 3D Object */}
-      <div className="absolute inset-0 z-10 pointer-events-auto">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>          <Suspense fallback={null}>
+      <div className="absolute inset-0 z-10 pointer-events-auto">        <Canvas camera={{ position: [3, 2, 8], fov: 50 }}>          <Suspense fallback={null}>
             <ambientLight intensity={0.6} />
             <spotLight position={[5, 10, 15]} angle={0.25} penumbra={1} intensity={1.5} castShadow />
             <pointLight position={[-10, -10, -10]} intensity={0.4} />
@@ -407,16 +406,19 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             <Starfield />
             
             <OrbitControls 
-              enableZoom={false} 
+              target={[0, 0, 0]}
+              enableZoom={true}
+              minDistance={5}
+              maxDistance={15}
               autoRotate={true}
-              autoRotateSpeed={0.8}
+              autoRotateSpeed={0.5}
               enablePan={false}
               enableRotate={true}
-              minPolarAngle={Math.PI / 3}
-              maxPolarAngle={Math.PI / 1.4}
-              rotateSpeed={1.0}
+              minPolarAngle={Math.PI / 4}
+              maxPolarAngle={Math.PI - Math.PI / 4}
+              rotateSpeed={0.8}
               enableDamping={true}
-              dampingFactor={0.08}
+              dampingFactor={0.05}
             />
           </Suspense>
         </Canvas>
