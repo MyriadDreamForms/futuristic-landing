@@ -63,12 +63,11 @@ const Sun = ({ onPlanetClick }: { onPlanetClick: (position: THREE.Vector3) => vo
       meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında döner
     }
   });
-
   return (
     <mesh 
       ref={meshRef} 
-      position={[0, 0, 0]}
-      onClick={() => onPlanetClick(new THREE.Vector3(0, 0, 0))}
+      position={[-12, 0, 0]}
+      onClick={() => onPlanetClick(new THREE.Vector3(-12, 0, 0))}
     >
       <sphereGeometry args={[2.0, 64, 64]} />
       <meshBasicMaterial map={sunTexture} />
@@ -101,10 +100,9 @@ const Earth = ({ onPlanetClick }: { onPlanetClick: (position: THREE.Vector3) => 
       onPlanetClick(worldPosition);
     }
   };
-
   return (
     <group ref={orbitRef}>
-      <group ref={groupRef} position={[7, 0, 0]}>
+      <group ref={groupRef} position={[0, 0, 0]}>
         <mesh ref={meshRef} onClick={handleClick}>
           <sphereGeometry args={[1.0, 128, 128]} />
           <meshPhysicalMaterial 
@@ -183,10 +181,9 @@ const Venus = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) =>
       onPlanetClick(worldPosition);
     }
   };
-
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[5.5, -1, 0]} onClick={handleClick}>
+      <mesh ref={meshRef} position={[-4.5, -1, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.7, 32, 32]} />
         <meshPhysicalMaterial 
           map={venusTexture}
@@ -315,10 +312,9 @@ const Mercury = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) 
       onPlanetClick(worldPosition);
     }
   };
-
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[3.5, 0.5, 0]} onClick={handleClick}>
+      <mesh ref={meshRef} position={[-8.5, 0.5, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.25, 24, 24]} />
         <meshPhysicalMaterial 
           map={mercuryTexture}
@@ -514,8 +510,8 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-dark-bg z-0">
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-accent-purple opacity-5 blur-[150px] rounded-full"></div>
-      </div>{/* 3D Object */}
-      <div className="absolute inset-0 z-10 pointer-events-auto">        <Canvas camera={{ position: [3, 2, 8], fov: 50 }}>          <Suspense fallback={null}>
+      </div>      {/* 3D Object */}
+      <div className="absolute inset-0 z-10 pointer-events-auto">        <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>          <Suspense fallback={null}>
             <ambientLight intensity={0.6} />
             <spotLight position={[5, 10, 15]} angle={0.25} penumbra={1} intensity={1.5} castShadow />
             <pointLight position={[-10, -10, -10]} intensity={0.4} />
