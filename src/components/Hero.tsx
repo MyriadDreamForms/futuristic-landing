@@ -52,7 +52,7 @@ const EarthGlobe = () => {
   );
 };
 
-// Mars gezegeni - Güneş etrafında orbit ile
+// Mars gezegeni - Güneş etrafında orbit ile (687 gün periyot)
 const Mars = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -63,7 +63,8 @@ const Mars = () => {
       meshRef.current.rotation.y += delta * 0.08; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.06; // Güneş etrafında orbit
+      // Dünya'ya göre 687/365 = 1.88 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.053; // Güneş etrafında orbit
     }
   });
 
@@ -81,7 +82,7 @@ const Mars = () => {
   );
 };
 
-// Venüs gezegeni - Güneş etrafında orbit ile
+// Venüs gezegeni - Güneş etrafında orbit ile (225 gün periyot)
 const Venus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -92,7 +93,8 @@ const Venus = () => {
       meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.12; // Güneş etrafında orbit (daha hızlı)
+      // Dünya'ya göre 365/225 = 1.62 kat hızlı
+      orbitRef.current.rotation.y += delta * 0.162; // Güneş etrafında orbit
     }
   });
 
@@ -110,7 +112,7 @@ const Venus = () => {
   );
 };
 
-// Jüpiter - Güneş etrafında orbit ile
+// Jüpiter - Güneş etrafında orbit ile (4,333 gün periyot)
 const Jupiter = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -121,7 +123,8 @@ const Jupiter = () => {
       meshRef.current.rotation.y += delta * 0.12; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.02; // Güneş etrafında orbit (yavaş)
+      // Dünya'ya göre 365/4333 = 0.084 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.0084; // Güneş etrafında orbit
     }
   });
 
@@ -139,7 +142,7 @@ const Jupiter = () => {
   );
 };
 
-// Satürn - Güneş etrafında orbit ile
+// Satürn - Güneş etrafında orbit ile (10,759 gün periyot)
 const Saturn = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
@@ -155,7 +158,8 @@ const Saturn = () => {
       ringsRef.current.rotation.z += delta * 0.05; // Halka dönüşü
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.015; // Güneş etrafında orbit (çok yavaş)
+      // Dünya'ya göre 365/10759 = 0.034 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.0034; // Güneş etrafında orbit
     }
   });
 
@@ -185,7 +189,7 @@ const Saturn = () => {
   );
 };
 
-// Merkür - Güneş etrafında orbit ile
+// Merkür - Güneş etrafında orbit ile (88 gün periyot)
 const Mercury = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -196,7 +200,8 @@ const Mercury = () => {
       meshRef.current.rotation.y += delta * 0.15; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.25; // Güneş etrafında orbit (en hızlı)
+      // Dünya'ya göre 365/88 = 4.15 kat hızlı
+      orbitRef.current.rotation.y += delta * 0.415; // Güneş etrafında orbit (en hızlı)
     }
   });
 
@@ -214,7 +219,7 @@ const Mercury = () => {
   );
 };
 
-// Uranüs - Güneş etrafında orbit ile
+// Uranüs - Güneş etrafında orbit ile (30,687 gün periyot)
 const Uranus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
@@ -229,7 +234,8 @@ const Uranus = () => {
       ringsRef.current.rotation.x += delta * 0.03; // Halka dönüşü
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.01; // Güneş etrafında orbit (çok yavaş)
+      // Dünya'ya göre 365/30687 = 0.012 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.0012; // Güneş etrafında orbit
     }
   });
 
@@ -259,7 +265,7 @@ const Uranus = () => {
   );
 };
 
-// Neptün - Güneş etrafında orbit ile
+// Neptün - Güneş etrafında orbit ile (60,190 gün periyot)
 const Neptune = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -270,7 +276,8 @@ const Neptune = () => {
       meshRef.current.rotation.y += delta * 0.04; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.008; // Güneş etrafında orbit (en yavaş)
+      // Dünya'ya göre 365/60190 = 0.006 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.0006; // Güneş etrafında orbit
     }
   });
 
@@ -324,7 +331,7 @@ const Sun = () => {
     </group>  );
 };
 
-// Plüton - Güneş etrafında orbit ile
+// Plüton - Güneş etrafında orbit ile (90,553 gün periyot)
 const Pluto = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -335,7 +342,8 @@ const Pluto = () => {
       meshRef.current.rotation.y += delta * 0.02; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.005; // Güneş etrafında orbit (çok çok yavaş)
+      // Dünya'ya göre 365/90553 = 0.004 kat yavaş
+      orbitRef.current.rotation.y += delta * 0.0004; // Güneş etrafında orbit (en yavaş)
     }
   });
 
@@ -353,7 +361,7 @@ const Pluto = () => {
   );
 };
 
-// Ay - Dünya'nın etrafında dönen uydu
+// Ay - Dünya'nın etrafında dönen uydu (27.3 gün periyot)
 const Moon = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
@@ -364,7 +372,8 @@ const Moon = () => {
       meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında dönüş
     }
     if (orbitRef.current) {
-      orbitRef.current.rotation.y += delta * 0.8; // Dünya etrafında orbit (hızlı)
+      // Dünya referansıyla 365/27.3 = 13.37 kat hızlı
+      orbitRef.current.rotation.y += delta * 1.337; // Dünya etrafında orbit
     }
   });
 
