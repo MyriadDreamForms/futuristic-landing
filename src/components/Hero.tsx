@@ -18,36 +18,58 @@ const Starfield = () => {
   );
 };
 
-const EarthGlobe = () => {
-  // Three.js için referanslar
+// Güneş - Merkez, kendi etrafında döner
+const Sun = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-    // Dünya için bir tekstür oluşturun - public klasöründen alıyoruz
-  const earthTexture = useTexture('/gezegenler/earth.jpg');
+  const sunTexture = useTexture('/gezegenler/sun.jpg');
   
-  // Animasyon için useFrame hook'unu kullanacağız
   useFrame((state, delta) => {
     if (meshRef.current) {
-      // Dünya'yı gerçekçi hızda döndür (y ekseni etrafında)
-      meshRef.current.rotation.y += delta * 0.1; // Daha yavaş ve gerçekçi dönüş
+      meshRef.current.rotation.y += delta * 0.05; // Kendi ekseni etrafında döner
     }
   });
+
   return (
-    <group>
-      <mesh
-        ref={meshRef}
-        position={[0, 0, 0]}
-      >
-        <sphereGeometry args={[1.0, 128, 128]} />
-        <meshPhysicalMaterial 
-          map={earthTexture}
-          roughness={0.7}
-          metalness={0.1}
-          clearcoat={0.2} 
-          clearcoatRoughness={0.2}
-        />
-      </mesh>
-      {/* Ay - Dünya'nın etrafında döner */}
-      <Moon />
+    <mesh ref={meshRef} position={[0, 0, 0]}>
+      <sphereGeometry args={[2.0, 64, 64]} />
+      <meshBasicMaterial map={sunTexture} />
+      {/* Güneş ışığı */}
+      <pointLight position={[0, 0, 0]} intensity={2} distance={50} />
+    </mesh>
+  );
+};
+
+// Dünya - Güneş etrafında orbit ile (365 gün periyot - referans)
+const Earth = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const orbitRef = useRef<THREE.Group>(null);
+  const earthTexture = useTexture('/gezegenler/earth.jpg');
+  
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.1; // Kendi ekseni etrafında dönüş
+    }
+    if (orbitRef.current) {
+      orbitRef.current.rotation.y += delta * 0.1; // Güneş etrafında orbit (referans hız)
+    }
+  });
+
+  return (
+    <group ref={orbitRef}>
+      <group position={[7, 0, 0]}>
+        <mesh ref={meshRef}>
+          <sphereGeometry args={[1.0, 128, 128]} />
+          <meshPhysicalMaterial 
+            map={earthTexture}
+            roughness={0.7}
+            metalness={0.1}
+            clearcoat={0.2} 
+            clearcoatRoughness={0.2}
+          />
+        </mesh>
+        {/* Ay - Dünya'nın etrafında döner */}
+        <Moon />
+      </group>
     </group>
   );
 };
@@ -67,10 +89,9 @@ const Mars = () => {
       orbitRef.current.rotation.y += delta * 0.053; // Güneş etrafında orbit
     }
   });
-
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[8, 1, 0]}>
+      <mesh ref={meshRef} position={[10, 1, 0]}>
         <sphereGeometry args={[0.5, 32, 32]} />
         <meshPhysicalMaterial 
           map={marsTexture}
@@ -97,7 +118,6 @@ const Venus = () => {
       orbitRef.current.rotation.y += delta * 0.162; // Güneş etrafında orbit
     }
   });
-
   return (
     <group ref={orbitRef}>
       <mesh ref={meshRef} position={[5.5, -1, 0]}>
@@ -295,42 +315,6 @@ const Neptune = () => {
   );
 };
 
-// Güneş - parlak sarı/turuncu
-const Sun = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const glowRef = useRef<THREE.Mesh>(null);
-  const sunTexture = useTexture('/gezegenler/sun.jpg');
-  
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.03;
-    }
-    if (glowRef.current) {
-      const time = state.clock.getElapsedTime();
-      const glow = 0.7 + Math.sin(time * 2) * 0.1;
-      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = glow;
-    }
-  });
-
-  return (
-    <group position={[-25, 10, -40]}>
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[2, 32, 32]} />
-        <meshBasicMaterial 
-          map={sunTexture}
-        />
-      </mesh>
-      <mesh ref={glowRef} scale={1.2}>
-        <sphereGeometry args={[2, 16, 16]} />
-        <meshBasicMaterial 
-          color="#ff6600"
-          transparent={true}
-          opacity={0.7}
-        />
-      </mesh>
-    </group>  );
-};
-
 // Plüton - Güneş etrafında orbit ile (90,553 gün periyot)
 const Pluto = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -406,7 +390,7 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             {/* Gezegenler için ek ışıklar */}
             <pointLight position={[10, 5, -5]} intensity={0.3} color="#ff6b6b" />
             <pointLight position={[-8, -2, -8]} intensity={0.2} color="#4ecdc4" />            {/* Ana gezegen - Dünya */}
-            <EarthGlobe />
+            <Earth />
             
             {/* Diğer gezegenler - arka planda */}
             <Sun />
