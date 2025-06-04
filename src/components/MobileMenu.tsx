@@ -132,13 +132,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
                       textDecoration: 'none',
                       transition: 'color 0.3s ease',
                       borderBottom: index < menuItems.length - 1 ? '1px solid #333' : 'none'
-                    }}
-                    onClick={(e) => {
+                    }}                    onClick={(e) => {
                       e.preventDefault();
                       const sectionId = getAsciiId(item);
                       console.log('Clicking:', item, sectionId); // Debug için
-                      scrollToSection(sectionId);
-                      onClose();
+                      onClose(); // Önce menüyü kapat
+                      setTimeout(() => {
+                        scrollToSection(sectionId); // Sonra scroll yap
+                      }, 100); // Kısa delay
                     }}
                     onMouseEnter={(e) => {
                       (e.target as HTMLElement).style.color = '#00a8ff';
