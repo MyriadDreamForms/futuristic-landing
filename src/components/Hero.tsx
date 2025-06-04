@@ -1,10 +1,45 @@
-import React, { useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, Suspense, useState } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { scrollToSection } from '../utils/animationHelpers';
 
 export {};
+
+// Kamera kontrol komponenti
+const CameraController = ({ targetPosition, shouldMove }: { targetPosition: THREE.Vector3 | null, shouldMove: boolean }) => {
+  const { camera } = useThree();
+  const controlsRef = useRef<any>(null);
+
+  useFrame(() => {
+    if (shouldMove && targetPosition && controlsRef.current) {
+      // Kamera hedef pozisyonuna yumuşak geçiş
+      const newPosition = targetPosition.clone().add(new THREE.Vector3(3, 2, 3));
+      camera.position.lerp(newPosition, 0.05);
+      controlsRef.current.target.lerp(targetPosition, 0.05);
+      controlsRef.current.update();
+    }
+  });
+
+  return (
+    <OrbitControls 
+      ref={controlsRef}
+      target={[0, 0, 0]}
+      enableZoom={true}
+      minDistance={5}
+      maxDistance={15}
+      autoRotate={!shouldMove}
+      autoRotateSpeed={0.5}
+      enablePan={false}
+      enableRotate={true}
+      minPolarAngle={Math.PI / 4}
+      maxPolarAngle={Math.PI - Math.PI / 4}
+      rotateSpeed={0.8}
+      enableDamping={true}
+      dampingFactor={0.05}
+    />
+  );
+};
 
 // Yıldız arka planı için küre
 const Starfield = () => {
@@ -19,7 +54,7 @@ const Starfield = () => {
 };
 
 // Güneş - Merkez, kendi etrafında döner
-const Sun = () => {
+const Sun = ({ onPlanetClick }: { onPlanetClick: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const sunTexture = useTexture('/gezegenler/sun.jpg');
   
@@ -30,7 +65,11 @@ const Sun = () => {
   });
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
+    <mesh 
+      ref={meshRef} 
+      position={[0, 0, 0]}
+      onClick={() => onPlanetClick(new THREE.Vector3(0, 0, 0))}
+    >
       <sphereGeometry args={[2.0, 64, 64]} />
       <meshBasicMaterial map={sunTexture} />
       {/* Güneş ışığı */}
@@ -40,9 +79,10 @@ const Sun = () => {
 };
 
 // Dünya - Güneş etrafında orbit ile (365 gün periyot - referans)
-const Earth = () => {
+const Earth = ({ onPlanetClick }: { onPlanetClick: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const earthTexture = useTexture('/gezegenler/earth.jpg');
   
   useFrame((state, delta) => {
@@ -54,10 +94,18 @@ const Earth = () => {
     }
   });
 
+  const handleClick = () => {
+    if (groupRef.current) {
+      const worldPosition = new THREE.Vector3();
+      groupRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <group position={[7, 0, 0]}>
-        <mesh ref={meshRef}>
+      <group ref={groupRef} position={[7, 0, 0]}>
+        <mesh ref={meshRef} onClick={handleClick}>
           <sphereGeometry args={[1.0, 128, 128]} />
           <meshPhysicalMaterial 
             map={earthTexture}
@@ -68,14 +116,14 @@ const Earth = () => {
           />
         </mesh>
         {/* Ay - Dünya'nın etrafında döner */}
-        <Moon />
+        <Moon onPlanetClick={onPlanetClick} />
       </group>
     </group>
   );
 };
 
 // Mars gezegeni - Güneş etrafında orbit ile (687 gün periyot)
-const Mars = () => {
+const Mars = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const marsTexture = useTexture('/gezegenler/mars.jpg');
@@ -89,9 +137,18 @@ const Mars = () => {
       orbitRef.current.rotation.y += delta * 0.053; // Güneş etrafında orbit
     }
   });
+
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[10, 1, 0]}>
+      <mesh ref={meshRef} position={[10, 1, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.5, 32, 32]} />
         <meshPhysicalMaterial 
           map={marsTexture}
@@ -104,7 +161,7 @@ const Mars = () => {
 };
 
 // Venüs gezegeni - Güneş etrafında orbit ile (225 gün periyot)
-const Venus = () => {
+const Venus = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const venusTexture = useTexture('/gezegenler/venus.jpg');
@@ -118,9 +175,18 @@ const Venus = () => {
       orbitRef.current.rotation.y += delta * 0.162; // Güneş etrafında orbit
     }
   });
+
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[5.5, -1, 0]}>
+      <mesh ref={meshRef} position={[5.5, -1, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.7, 32, 32]} />
         <meshPhysicalMaterial 
           map={venusTexture}
@@ -133,7 +199,7 @@ const Venus = () => {
 };
 
 // Jüpiter - Güneş etrafında orbit ile (4,333 gün periyot)
-const Jupiter = () => {
+const Jupiter = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const jupiterTexture = useTexture('/gezegenler/jupiter.jpg');
@@ -148,9 +214,17 @@ const Jupiter = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[15, -2, 0]}>
+      <mesh ref={meshRef} position={[15, -2, 0]} onClick={handleClick}>
         <sphereGeometry args={[1.1, 32, 32]} />
         <meshPhysicalMaterial 
           map={jupiterTexture}
@@ -163,10 +237,11 @@ const Jupiter = () => {
 };
 
 // Satürn - Güneş etrafında orbit ile (10,759 gün periyot)
-const Saturn = () => {
+const Saturn = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const saturnTexture = useTexture('/gezegenler/saturn.jpg');
   const ringTexture = useTexture('/gezegenler/saturn_ring_alpha.png');
   
@@ -183,9 +258,17 @@ const Saturn = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && groupRef.current) {
+      const worldPosition = new THREE.Vector3();
+      groupRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <group position={[18, 3, 0]}>
+      <group ref={groupRef} position={[18, 3, 0]} onClick={handleClick}>
         <mesh ref={meshRef}>
           <sphereGeometry args={[0.8, 32, 32]} />
           <meshPhysicalMaterial 
@@ -210,7 +293,7 @@ const Saturn = () => {
 };
 
 // Merkür - Güneş etrafında orbit ile (88 gün periyot)
-const Mercury = () => {
+const Mercury = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const mercuryTexture = useTexture('/gezegenler/mercury.jpg');
@@ -225,9 +308,17 @@ const Mercury = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[3.5, 0.5, 0]}>
+      <mesh ref={meshRef} position={[3.5, 0.5, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.25, 24, 24]} />
         <meshPhysicalMaterial 
           map={mercuryTexture}
@@ -240,10 +331,11 @@ const Mercury = () => {
 };
 
 // Uranüs - Güneş etrafında orbit ile (30,687 gün periyot)
-const Uranus = () => {
+const Uranus = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const uranusTexture = useTexture('/gezegenler/uranus.jpg');
   
   useFrame((state, delta) => {
@@ -259,9 +351,17 @@ const Uranus = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && groupRef.current) {
+      const worldPosition = new THREE.Vector3();
+      groupRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <group position={[22, 4, 0]}>
+      <group ref={groupRef} position={[22, 4, 0]} onClick={handleClick}>
         <mesh ref={meshRef}>
           <sphereGeometry args={[0.6, 24, 24]} />
           <meshPhysicalMaterial 
@@ -286,7 +386,7 @@ const Uranus = () => {
 };
 
 // Neptün - Güneş etrafında orbit ile (60,190 gün periyot)
-const Neptune = () => {
+const Neptune = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const neptuneTexture = useTexture('/gezegenler/neptune.jpg');
@@ -301,9 +401,17 @@ const Neptune = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[25, -4, 0]}>
+      <mesh ref={meshRef} position={[25, -4, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.55, 24, 24]} />
         <meshPhysicalMaterial 
           map={neptuneTexture}
@@ -316,7 +424,7 @@ const Neptune = () => {
 };
 
 // Plüton - Güneş etrafında orbit ile (90,553 gün periyot)
-const Pluto = () => {
+const Pluto = ({ onPlanetClick }: { onPlanetClick?: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const plutoTexture = useTexture('/gezegenler/pluto.jpg');
@@ -331,9 +439,17 @@ const Pluto = () => {
     }
   });
 
+  const handleClick = () => {
+    if (onPlanetClick && meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef}>
-      <mesh ref={meshRef} position={[28, -6, 0]}>
+      <mesh ref={meshRef} position={[28, -6, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.15, 16, 16]} />
         <meshPhysicalMaterial 
           map={plutoTexture}
@@ -346,7 +462,7 @@ const Pluto = () => {
 };
 
 // Ay - Dünya'nın etrafında dönen uydu (27.3 gün periyot)
-const Moon = () => {
+const Moon = ({ onPlanetClick }: { onPlanetClick: (position: THREE.Vector3) => void }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const orbitRef = useRef<THREE.Group>(null);
   const moonTexture = useTexture('/gezegenler/moon.jpg');
@@ -361,9 +477,17 @@ const Moon = () => {
     }
   });
 
+  const handleClick = () => {
+    if (meshRef.current) {
+      const worldPosition = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPosition);
+      onPlanetClick(worldPosition);
+    }
+  };
+
   return (
     <group ref={orbitRef} position={[0, 0, 0]}>
-      <mesh ref={meshRef} position={[2.5, 0, 0]}>
+      <mesh ref={meshRef} position={[2.5, 0, 0]} onClick={handleClick}>
         <sphereGeometry args={[0.2, 16, 16]} />
         <meshPhysicalMaterial 
           map={moonTexture}
@@ -375,7 +499,17 @@ const Moon = () => {
   );
 };
 
-const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+const Hero: React.FC = () => {
+  const [selectedPlanet, setSelectedPlanet] = useState<THREE.Vector3 | null>(null);
+  const [shouldMove, setShouldMove] = useState(false);
+
+  const handlePlanetClick = (position: THREE.Vector3) => {
+    setSelectedPlanet(position);
+    setShouldMove(true);
+    setTimeout(() => setShouldMove(false), 3000); // 3 saniye sonra auto-rotate'i tekrar aktif et
+  };
+
+  return (    <section id="ana-sayfa" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-dark-bg z-0">
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
@@ -389,37 +523,22 @@ const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="rel
             {/* Gezegenler için ek ışıklar */}
             <pointLight position={[10, 5, -5]} intensity={0.3} color="#ff6b6b" />
             <pointLight position={[-8, -2, -8]} intensity={0.2} color="#4ecdc4" />            {/* Ana gezegen - Dünya */}
-            <Earth />
+            <Earth onPlanetClick={handlePlanetClick} />
             
             {/* Diğer gezegenler - arka planda */}
-            <Sun />
-            <Mercury />
-            <Venus />
-            <Mars />
-            <Jupiter />
-            <Saturn />
-            <Uranus />
-            <Neptune />
-            <Pluto />
+            <Sun onPlanetClick={handlePlanetClick} />
+            <Mercury onPlanetClick={handlePlanetClick} />
+            <Venus onPlanetClick={handlePlanetClick} />
+            <Mars onPlanetClick={handlePlanetClick} />
+            <Jupiter onPlanetClick={handlePlanetClick} />
+            <Saturn onPlanetClick={handlePlanetClick} />
+            <Uranus onPlanetClick={handlePlanetClick} />
+            <Neptune onPlanetClick={handlePlanetClick} />
+            <Pluto onPlanetClick={handlePlanetClick} />
             
             {/* Yıldızlı arka plan */}
             <Starfield />
-            
-            <OrbitControls 
-              target={[0, 0, 0]}
-              enableZoom={true}
-              minDistance={5}
-              maxDistance={15}
-              autoRotate={true}
-              autoRotateSpeed={0.5}
-              enablePan={false}
-              enableRotate={true}
-              minPolarAngle={Math.PI / 4}
-              maxPolarAngle={Math.PI - Math.PI / 4}
-              rotateSpeed={0.8}
-              enableDamping={true}
-              dampingFactor={0.05}
-            />
+              <CameraController targetPosition={selectedPlanet} shouldMove={shouldMove} />
           </Suspense>
         </Canvas>
       </div>      {/* Content */}
