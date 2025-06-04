@@ -302,12 +302,12 @@ const Pluto = () => {
   );
 };
 
-const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24">
+const Hero: React.FC = () => {return (    <section id="ana-sayfa" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-dark-bg z-0">
         <div className="absolute top-0 left-0 w-1/3 h-2/3 bg-accent-blue opacity-5 blur-[150px] rounded-full"></div>
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-accent-purple opacity-5 blur-[150px] rounded-full"></div>
-      </div>      {/* 3D Object */}
+      </div>{/* 3D Object */}
       <div className="absolute inset-0 z-10 pointer-events-auto">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>          <Suspense fallback={null}>
             <ambientLight intensity={0.6} />
