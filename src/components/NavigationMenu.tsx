@@ -74,13 +74,18 @@ const NavigationMenu: React.FC = () => {
       }}
       role="navigation"
       aria-label="Ana gezinme"
-    ><div className="container mx-auto flex justify-between items-center"><a href="#ana-sayfa" className="flex items-center" aria-label="Ana sayfaya git" onClick={(e) => {
+    ><div className="container mx-auto flex justify-between items-center">        <a href="#ana-sayfa" className="flex items-center" aria-label="Ana sayfaya git" onClick={(e) => {
           e.preventDefault();
           scrollToSection('ana-sayfa');
         }}>
+          <img 
+            src="/logo.png" 
+            alt="Senkronsoft Logo" 
+            className={`h-8 w-8 sm:h-10 sm:w-10 mr-2 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
+          />
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-accent-blue logo-bright-glow mr-1 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SENKRON</span>
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-white transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SOFT</span>
-        </a>        <ul className="hidden md:flex space-x-4 lg:space-x-8">          {['Ana Sayfa', 'Çözümlerimiz', 'Hizmetlerimiz', 'Referanslar', 'İletişim'].map((item) => {            // Türkçe karakterleri ASCII karakterlere dönüştür
+        </a><ul className="hidden md:flex space-x-4 lg:space-x-8">          {['Ana Sayfa', 'Çözümlerimiz', 'Hizmetlerimiz', 'Referanslar', 'İletişim'].map((item) => {            // Türkçe karakterleri ASCII karakterlere dönüştür
             let sectionId = '';
             if (item === 'Ana Sayfa') sectionId = 'ana-sayfa';
             else if (item === 'Çözümlerimiz') sectionId = 'cozumlerimiz';

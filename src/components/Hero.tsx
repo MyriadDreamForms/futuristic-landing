@@ -8,7 +8,7 @@ export {};
 
 // Yıldız arka planı için küre
 const Starfield = () => {
-  const starTexture = useTexture('/stars_milky_way.jpg');
+  const starTexture = useTexture('/gezegenler/stars_milky_way.jpg');
   
   return (
     <mesh scale={[-1, 1, 1]}> {/* Negatif scale ile içten görünümü sağlıyoruz */}
@@ -21,9 +21,8 @@ const Starfield = () => {
 const EarthGlobe = () => {
   // Three.js için referanslar
   const meshRef = useRef<THREE.Mesh>(null);
-  
-  // Dünya için bir tekstür oluşturun - public klasöründen alıyoruz
-  const earthTexture = useTexture('/earth.jpg');
+    // Dünya için bir tekstür oluşturun - public klasöründen alıyoruz
+  const earthTexture = useTexture('/gezegenler/earth.jpg');
   
   // Animasyon için useFrame hook'unu kullanacağız
   useFrame((state, delta) => {
@@ -52,7 +51,7 @@ const EarthGlobe = () => {
 // Mars gezegeni - gerçek Mars tekstürü
 const Mars = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const marsTexture = useTexture('/mars.jpg');
+  const marsTexture = useTexture('/gezegenler/mars.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -75,7 +74,7 @@ const Mars = () => {
 // Venüs gezegeni - gerçek Venüs tekstürü
 const Venus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const venusTexture = useTexture('/venus.jpg');
+  const venusTexture = useTexture('/gezegenler/venus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -98,7 +97,7 @@ const Venus = () => {
 // Jüpiter - gerçek Jüpiter tekstürü
 const Jupiter = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const jupiterTexture = useTexture('/jupiter.jpg');
+  const jupiterTexture = useTexture('/gezegenler/jupiter.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -121,9 +120,8 @@ const Jupiter = () => {
 // Satürn - gerçek Satürn tekstürü ve halkaları
 const Saturn = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const ringsRef = useRef<THREE.Mesh>(null);
-  const saturnTexture = useTexture('/saturn.jpg');
-  const ringTexture = useTexture('/saturn_ring_alpha.png');
+  const ringsRef = useRef<THREE.Mesh>(null);  const saturnTexture = useTexture('/gezegenler/saturn.jpg');
+  const ringTexture = useTexture('/gezegenler/saturn_ring_alpha.png');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -161,7 +159,7 @@ const Saturn = () => {
 // Merkür - gerçek Merkür tekstürü
 const Mercury = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const mercuryTexture = useTexture('/mercury.jpg');
+  const mercuryTexture = useTexture('/gezegenler/mercury.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -185,7 +183,7 @@ const Mercury = () => {
 const Uranus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
-  const uranusTexture = useTexture('/uranus.jpg');
+  const uranusTexture = useTexture('/gezegenler/uranus.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -223,7 +221,7 @@ const Uranus = () => {
 // Neptün - gerçek Neptün tekstürü
 const Neptune = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const neptuneTexture = useTexture('/neptune.jpg');
+  const neptuneTexture = useTexture('/gezegenler/neptune.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -247,7 +245,7 @@ const Neptune = () => {
 const Sun = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
-  const sunTexture = useTexture('/sun.jpg');
+  const sunTexture = useTexture('/gezegenler/sun.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -282,7 +280,7 @@ const Sun = () => {
 // Plüton - gerçek Plüton tekstürü
 const Pluto = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const plutoTexture = useTexture('/pluto.jpg');
+  const plutoTexture = useTexture('/gezegenler/pluto.jpg');
   
   useFrame((state, delta) => {
     if (meshRef.current) {

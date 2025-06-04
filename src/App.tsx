@@ -33,7 +33,7 @@ function App() {
     // Background image preload - ana sayfa açıldıktan sonra
     setTimeout(() => {
       const img = new Image();
-      img.src = "/earth.jpg";
+      img.src = "/gezegenler/earth.jpg";
     }, 100);
   }, []);
   
