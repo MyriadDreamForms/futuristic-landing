@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MobileMenu from './MobileMenu';
-import { scrollToSection } from '../utils/animationHelpers';
+import { scrollToSection } from '../../utils/animationHelpers';
 
 export {};
 

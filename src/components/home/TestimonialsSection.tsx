@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ANIMATION_CONFIG, staggerContainer } from '../utils/animationSettings';
+import { ANIMATION_CONFIG, staggerContainer } from '../../utils/animationSettings';
 
 interface TestimonialProps {
   quote: string;

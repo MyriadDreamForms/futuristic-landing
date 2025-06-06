@@ -1,6 +1,6 @@
 ﻿// MobileMenu.tsx
 import React from 'react';
-import { scrollToSection } from '../utils/animationHelpers';
+import { scrollToSection } from '../../utils/animationHelpers';
 
 interface MobileMenuProps {
   isOpen: boolean;

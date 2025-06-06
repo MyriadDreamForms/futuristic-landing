@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { scrollToSection } from '../utils/animationHelpers';
+import { scrollToSection } from '../../utils/animationHelpers';
 
 export {};
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ANIMATION_CONFIG } from '../utils/animationSettings';
+import { ANIMATION_CONFIG } from '../../utils/animationSettings';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({

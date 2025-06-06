@@ -5,16 +5,15 @@ import './App.css';
 import { useScrollEffect } from './hooks/useScrollEffect';
 
 // Critical components - immediate load
-import NavigationMenu from './components/NavigationMenu';
-import Hero from './components/Hero';
+import { NavigationMenu, Hero } from './components';
 
 // Non-critical components - lazy load
-const FeaturesSection = lazy(() => import('./components/FeaturesSection'));
-const ProductsSection = lazy(() => import('./components/ProductsSection'));
-const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'));
-const ContactSection = lazy(() => import('./components/ContactSection'));
-const FooterSection = lazy(() => import('./components/FooterSection'));
-const FeedbackButton = lazy(() => import('./components/FeedbackButton'));
+const FeaturesSection = lazy(() => import('./components/home/FeaturesSection'));
+const ProductsSection = lazy(() => import('./components/home/ProductsSection'));
+const TestimonialsSection = lazy(() => import('./components/home/TestimonialsSection'));
+const ContactSection = lazy(() => import('./components/home/ContactSection'));
+const FooterSection = lazy(() => import('./components/layout/FooterSection'));
+const FeedbackButton = lazy(() => import('./components/layout/FeedbackButton'));
 
 function App() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
