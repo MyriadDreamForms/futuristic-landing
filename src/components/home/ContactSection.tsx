@@ -36,7 +36,7 @@ const ContactSection: React.FC = () => {
     if (!phone) return true;
     
     // Basit bir telefon numarası doğrulaması (en az 10 karakter ve sadece rakam, +, - ve parantez içerebilir)
-    const re = /^[0-9\+\-\(\)\s]{10,}$/;
+    const re = /^[0-9+\-()\s]{10,}$/;
     return re.test(phone);
   };
 

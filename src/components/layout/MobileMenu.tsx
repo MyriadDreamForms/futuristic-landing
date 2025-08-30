@@ -1,4 +1,5 @@
-﻿// MobileMenu.tsx
+﻿// eslint-disable-next-line unicode-bom
+// MobileMenu.tsx
 import React from 'react';
 import { scrollToSection } from '../../utils/animationHelpers';
 
@@ -13,16 +14,16 @@ const getAsciiId = (item: string): string => {
   if (item === 'Ana Sayfa') return 'ana-sayfa';
   else if (item === 'Çözümlerimiz') return 'cozumlerimiz';
   else if (item === 'Hizmetlerimiz') return 'hizmetlerimiz';
-  else if (item === 'Referanslar') return 'referanslar';
+  else if (item === 'Projelerimiz') return 'projelerimiz';
   else if (item === 'İletişim') return 'iletisim';
   else return item.toLowerCase().replace(/\s+/g, '-');
 };
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
-  const menuItems = ["Ana Sayfa", "Çözümlerimiz", "Hizmetlerimiz", "Referanslar", "İletişim"];
+  const menuItems = ["Ana Sayfa", "Çözümlerimiz", "Hizmetlerimiz", "Projelerimiz", "İletişim"];
 
   console.log('MobileMenu render - isOpen:', isOpen); // Debug
-  
+
   // Body scroll'unu engelle/serbest bırak
   React.useEffect(() => {
     if (isOpen) {
@@ -34,27 +35,27 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
       document.body.style.position = '';
       document.body.style.width = '';
     }
-    
+
     return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
     };
   }, [isOpen]);
-  
+
   if (!isOpen) {
     console.log('MobileMenu: isOpen false, returning null'); // Debug
     return null;
   }
-  
+
   console.log('MobileMenu: Rendering menu...'); // Debug
-  
+
   return (
     <>
       {/* Backdrop */}
       <div
         className="fixed inset-0"
-        style={{ 
+        style={{
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           backdropFilter: 'blur(8px)',
           opacity: '1',
@@ -68,13 +69,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
         }}
         onClick={onClose}
       />
-      
+
       {/* Menu */}
       <div
         id={id || 'mobile-menu'}
         className="fixed top-0 right-0 h-full w-[85%] sm:w-[320px]"
-        style={{ 
-          backgroundColor: '#0a0a0a', 
+        style={{
+          backgroundColor: '#0a0a0a',
           borderLeft: '2px solid #00a8ff',
           opacity: '1',
           visibility: 'visible',
@@ -92,10 +93,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
         aria-modal="true"
         aria-label="Mobil menü"
       >
-        <div className="flex flex-col h-full p-6" style={{ 
-          paddingTop: '3rem', 
-          height: '100%', 
-          display: 'flex', 
+        <div className="flex flex-col h-full p-6" style={{
+          paddingTop: '3rem',
+          height: '100%',
+          display: 'flex',
           flexDirection: 'column',
           backgroundColor: '#0a0a0a',
           overflow: 'auto'
@@ -109,7 +110,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
               <span className="text-2xl font-bold text-blue-400" style={{ color: '#00a8ff' }}>SENKRON</span>
               <span className="text-2xl font-bold text-white">SOFT</span>
             </a>
-            <button 
+            <button
               className="text-white p-2 hover:text-accent-blue transition-colors duration-300 text-2xl"
               onClick={onClose}
               aria-label="Menüyü kapat"
@@ -122,12 +123,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
             <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
               {menuItems.map((item, index) => (
                 <li key={item} style={{ marginBottom: '1.5rem', display: 'block' }}>
-                  <a 
-                    href={`#${getAsciiId(item)}`} 
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: '1.125rem', 
-                      display: 'block', 
+                  <a
+                    href={`#${getAsciiId(item)}`}
+                    style={{
+                      color: '#ffffff',
+                      fontSize: '1.125rem',
+                      display: 'block',
                       padding: '0.75rem 0',
                       textDecoration: 'none',
                       transition: 'color 0.3s ease',
@@ -154,7 +155,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, id }) => {
               ))}
             </ul>
           </nav>          <div className="pt-6 mt-6 border-t border-gray-800">
-            <button 
+            <button
               className="futuristic-button w-full py-3"
               onClick={(e) => {
                 onClose(); // Önce menüyü kapat

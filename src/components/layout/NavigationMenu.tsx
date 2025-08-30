@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
 import { scrollToSection } from '../../utils/animationHelpers';
 
@@ -15,28 +15,34 @@ const NavigationMenu: React.FC = () => {
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
       }      // Görünür bölümü tespit et
-      const sections = ['ana-sayfa', 'cozumlerimiz', 'hizmetlerimiz', 'referanslar', 'iletisim'];
-      // Navbar'ın yüksekliği (mobil ve masaüstü için farklılık gösterebilir)
-      const navbarHeight = scrolled ? 64 : 80; 
-      const currentPosition = window.scrollY + navbarHeight; 
-      
+      const sections = ['ana-sayfa', 'cozumlerimiz', 'hizmetlerimiz', 'projelerimiz', 'iletisim'];
+      // Navbar'ın gerçek yüksekliğini al
+      const navbarElement = document.querySelector('nav');
+      const navbarHeight = navbarElement ? navbarElement.offsetHeight : 80;
+      const currentPosition = window.scrollY + navbarHeight;
+
+      console.log('Current position:', currentPosition, 'Active section before:', activeSection);
+
       // Son olarak bulunan aktif bölümü saklayalım
       let activeFound = false;
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
+          console.log(`Section ${section}: offsetTop=${offsetTop}, offsetHeight=${offsetHeight}`);
           if (currentPosition >= offsetTop && currentPosition < offsetTop + offsetHeight) {
+            console.log(`Setting active section to: ${section}`);
             setActiveSection(section);
             activeFound = true;
             break;
           }
         }
       }
-      
+
       // Eğer hiçbir aktif bölüm bulunamadıysa ve sayfanın en üstündeyse ana sayfayı aktif et
       if (!activeFound && window.scrollY < 100) {
+        console.log('No active section found, setting to ana-sayfa');
         setActiveSection('ana-sayfa');
       }
     };
@@ -48,7 +54,7 @@ const NavigationMenu: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [scrolled]);
+  }, [scrolled, activeSection]);
   
   // Mobil menü açıkken vücut kaydırmasını devre dışı bırak
   useEffect(() => {
@@ -84,12 +90,12 @@ const NavigationMenu: React.FC = () => {
           />
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-accent-blue logo-bright-glow mr-1 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SENKRON</span>
           <span className={`text-lg xs:text-xl sm:text-2xl font-display font-bold text-white transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}>SOFT</span>
-        </a><ul className="hidden md:flex space-x-4 lg:space-x-8">          {['Ana Sayfa', 'Çözümlerimiz', 'Hizmetlerimiz', 'Referanslar', 'İletişim'].map((item) => {            // Türkçe karakterleri ASCII karakterlere dönüştür
+        </a><ul className="hidden md:flex space-x-4 lg:space-x-8">          {['Ana Sayfa', 'Çözümlerimiz', 'Hizmetlerimiz', 'Projelerimiz', 'İletişim'].map((item) => {            // Türkçe karakterleri ASCII karakterlere dönüştür
             let sectionId = '';
             if (item === 'Ana Sayfa') sectionId = 'ana-sayfa';
             else if (item === 'Çözümlerimiz') sectionId = 'cozumlerimiz';
             else if (item === 'Hizmetlerimiz') sectionId = 'hizmetlerimiz';
-            else if (item === 'Referanslar') sectionId = 'referanslar';
+            else if (item === 'Projelerimiz') sectionId = 'projelerimiz';
             else if (item === 'İletişim') sectionId = 'iletisim';
             else sectionId = item.toLowerCase().replace(/\s+/g, '-');
             const isActive = activeSection === sectionId;

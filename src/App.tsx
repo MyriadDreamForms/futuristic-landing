@@ -10,7 +10,7 @@ import { NavigationMenu, Hero } from './components';
 // Non-critical components - lazy load
 const FeaturesSection = lazy(() => import('./components/home/FeaturesSection'));
 const ProductsSection = lazy(() => import('./components/home/ProductsSection'));
-const TestimonialsSection = lazy(() => import('./components/home/TestimonialsSection'));
+const ProjectsSection = lazy(() => import('./components/home/ProjectsSection'));
 const ContactSection = lazy(() => import('./components/home/ContactSection'));
 const FooterSection = lazy(() => import('./components/layout/FooterSection'));
 const FeedbackButton = lazy(() => import('./components/layout/FeedbackButton'));
@@ -48,7 +48,7 @@ function App() {
         <Suspense fallback={<div className="w-full py-8 flex items-center justify-center"><div className="text-accent-blue animate-pulse">Yükleniyor...</div></div>}>
           <ProductsSection />
           <FeaturesSection />
-          <TestimonialsSection />
+          <ProjectsSection />
           <ContactSection />
           <FooterSection />
         </Suspense>
